@@ -9,10 +9,10 @@ const Home = () => {
     return (
         <div>
             {/* Hero Section */}
-            <section className="bg-primary text-white py-5">
+            <section className="bg-primary text-white hero-section">
                 <Container>
-                    <Row className="align-items-center">
-                        <Col lg={6}>
+                    <Row className="align-items-center min-vh-60">
+                        <Col lg={6} className="hero-content">
                             <h1 className="display-4 fw-bold mb-4">
                                 Secure File Sharing Made Simple
                             </h1>
@@ -20,7 +20,7 @@ const Home = () => {
                                 Share your files securely with end-to-end encryption.
                                 Your privacy is our priority.
                             </p>
-                            <div className="d-flex gap-3">
+                            <div className="d-flex gap-3 flex-wrap justify-content-lg-start justify-content-center">
                                 {!isAuthenticated ? (
                                     <>
                                         <Link to="/register">
@@ -43,8 +43,10 @@ const Home = () => {
                                 )}
                             </div>
                         </Col>
-                        <Col lg={6} className="text-center">
-                            <i className="fas fa-shield-alt" style={{ fontSize: '8rem', opacity: 0.7 }}></i>
+                        <Col lg={6} className="hero-icon">
+                            <div className="d-flex justify-content-lg-end justify-content-center align-items-center h-100">
+                                <i className="fas fa-shield-alt" style={{ fontSize: '8rem', opacity: 0.7 }}></i>
+                            </div>
                         </Col>
                     </Row>
                 </Container>
