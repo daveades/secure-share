@@ -52,7 +52,7 @@ const Dashboard = () => {
         if (!selectedFile) return;
 
         const shareLink = `${window.location.origin}/share/${selectedFile.id}?token=${Math.random().toString(36).substr(2)}`;
-        
+
         const updatedFile = {
             ...selectedFile,
             shareLink,
@@ -60,7 +60,7 @@ const Dashboard = () => {
             sharedAt: new Date()
         };
 
-        setFiles(prev => prev.map(file => 
+        setFiles(prev => prev.map(file =>
             file.id === selectedFile.id ? updatedFile : file
         ));
 
@@ -103,7 +103,7 @@ const Dashboard = () => {
                                 <p className="text-muted mb-0">Welcome back, {user?.name || 'User'}!</p>
                             </div>
                             <div className="d-flex gap-2">
-                                <Button variant="outline-primary" size="sm">
+                                <Button variant="outline-success" size="sm">
                                     <i className="fas fa-cog me-2"></i>Settings
                                 </Button>
                             </div>
@@ -114,29 +114,29 @@ const Dashboard = () => {
                 {/* Stats Cards */}
                 <Row className="mb-4">
                     <Col md={4}>
-                        <Card className="h-100 border-0 shadow-sm stats-card">
+                        <Card className="h-100 border-0 shadow-sm stats-card files-card">
                             <Card.Body className="text-center">
-                                <i className="fas fa-file-upload text-primary mb-2" style={{ fontSize: '2rem' }}></i>
+                                <i className="fas fa-file-upload mb-2" style={{ fontSize: '2rem' }}></i>
                                 <h4 className="mb-1">{stats.totalFiles}</h4>
-                                <p className="text-muted mb-0">Total Files</p>
+                                <p className="mb-0" style={{ opacity: 0.9 }}>Total Files</p>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col md={4}>
-                        <Card className="h-100 border-0 shadow-sm stats-card">
+                        <Card className="h-100 border-0 shadow-sm stats-card storage-card">
                             <Card.Body className="text-center">
-                                <i className="fas fa-hdd text-success mb-2" style={{ fontSize: '2rem' }}></i>
+                                <i className="fas fa-hdd mb-2" style={{ fontSize: '2rem' }}></i>
                                 <h4 className="mb-1">{formatFileSize(stats.totalSize)}</h4>
-                                <p className="text-muted mb-0">Storage Used</p>
+                                <p className="mb-0" style={{ opacity: 0.9 }}>Storage Used</p>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col md={4}>
-                        <Card className="h-100 border-0 shadow-sm stats-card">
+                        <Card className="h-100 border-0 shadow-sm stats-card shares-card">
                             <Card.Body className="text-center">
-                                <i className="fas fa-share-alt text-warning mb-2" style={{ fontSize: '2rem' }}></i>
+                                <i className="fas fa-share-alt mb-2" style={{ fontSize: '2rem' }}></i>
                                 <h4 className="mb-1">{stats.activeShares}</h4>
-                                <p className="text-muted mb-0">Active Shares</p>
+                                <p className="mb-0" style={{ opacity: 0.9 }}>Active Shares</p>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -155,11 +155,11 @@ const Dashboard = () => {
                             </Card.Header>
                             <Card.Body>
                                 <FileUpload onFileUpload={handleFileUpload} />
-                                
+
                                 <div className="mt-3 p-3 bg-light rounded">
                                     <small className="text-muted">
-                                        <strong>Upload Limits:</strong><br/>
-                                        Max file size: {formatFileSize(config.MAX_FILE_SIZE)}<br/>
+                                        <strong>Upload Limits:</strong><br />
+                                        Max file size: {formatFileSize(config.MAX_FILE_SIZE)}<br />
                                         Supported formats: Images, PDFs, Documents, Videos
                                     </small>
                                 </div>
@@ -231,7 +231,7 @@ const Dashboard = () => {
                                                         <td className="text-end">
                                                             <div className="btn-group btn-group-sm">
                                                                 <Button
-                                                                    variant="outline-primary"
+                                                                    variant="outline-success"
                                                                     size="sm"
                                                                     onClick={() => handleShare(file)}
                                                                     title="Share file"
@@ -295,7 +295,7 @@ const Dashboard = () => {
                                             type="password"
                                             placeholder="Enter password for file protection"
                                             value={shareSettings.password}
-                                            onChange={(e) => setShareSettings(prev => ({...prev, password: e.target.value}))}
+                                            onChange={(e) => setShareSettings(prev => ({ ...prev, password: e.target.value }))}
                                         />
                                     </Form.Group>
 
@@ -303,7 +303,7 @@ const Dashboard = () => {
                                         <Form.Label>Expires In</Form.Label>
                                         <Form.Select
                                             value={shareSettings.expiresIn}
-                                            onChange={(e) => setShareSettings(prev => ({...prev, expiresIn: parseInt(e.target.value)}))}
+                                            onChange={(e) => setShareSettings(prev => ({ ...prev, expiresIn: parseInt(e.target.value) }))}
                                         >
                                             {config.EXPIRATION_OPTIONS.map(option => (
                                                 <option key={option.value} value={option.value}>
@@ -318,7 +318,7 @@ const Dashboard = () => {
                                             type="checkbox"
                                             label="Allow downloads"
                                             checked={shareSettings.allowDownloads}
-                                            onChange={(e) => setShareSettings(prev => ({...prev, allowDownloads: e.target.checked}))}
+                                            onChange={(e) => setShareSettings(prev => ({ ...prev, allowDownloads: e.target.checked }))}
                                         />
                                     </Form.Group>
                                 </Form>
@@ -329,7 +329,7 @@ const Dashboard = () => {
                         <Button variant="secondary" onClick={() => setShowShareModal(false)}>
                             Cancel
                         </Button>
-                        <Button variant="primary" onClick={generateShareLink}>
+                        <Button variant="success" onClick={generateShareLink}>
                             <i className="fas fa-link me-2"></i>
                             Generate Share Link
                         </Button>
