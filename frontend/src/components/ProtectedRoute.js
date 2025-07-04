@@ -10,6 +10,12 @@ const ProtectedRoute = ({ children }) => {
         return <LoadingSpinner />;
     }
 
+    // Temporarily bypass authentication for development
+    // TODO: Remove this in production
+    if (process.env.NODE_ENV === 'development') {
+        return children;
+    }
+
     if (!isAuthenticated) {
         return <Navigate to="/login" replace />;
     }
