@@ -81,7 +81,7 @@ const FileUpload = ({ onFileUpload }) => {
         e.preventDefault();
         e.stopPropagation();
         setDragActive(false);
-        
+
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
             handleFiles(e.dataTransfer.files);
         }
@@ -181,9 +181,9 @@ const FileUpload = ({ onFileUpload }) => {
                         <>
                             <i className="fas fa-spinner fa-spin text-primary mb-3" style={{ fontSize: '3rem' }}></i>
                             <h5>Uploading Files...</h5>
-                            <ProgressBar 
-                                now={uploadProgress} 
-                                className="mb-2" 
+                            <ProgressBar
+                                now={uploadProgress}
+                                className="mb-2"
                                 style={{ height: '8px' }}
                                 animated
                             />
