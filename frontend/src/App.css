@@ -34,108 +34,275 @@
   }
 }
 
-/* Hero Section Styles */
-.hero-section {
-  min-height: 60vh;
+/* Custom Styles for SecureShare */
+/* Black and White Theme with Gradient Hero */
+:root {
+  --primary-black: #000000;
+  --secondary-black: #1a1a1a;
+  --light-gray: #f8f9fa;
+  --medium-gray: #6c757d;
+  --white: #ffffff;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+  --shadow-dark: rgba(0, 0, 0, 0.3);
+}
+
+body {
+  background-color: var(--white);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Hero Section with Gradient */
+.hero-gradient {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  background: linear-gradient(135deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.5) 50%,
+      rgba(0, 0, 0, 0.8) 100%);
+  min-height: 100vh;
   display: flex;
   align-items: center;
+  position: relative;
+}
+
+.hero-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
+  opacity: 0.3;
 }
 
 .hero-content {
-  text-align: left;
-}
-
-.hero-content h1 {
-  line-height: 1.2;
-}
-
-.hero-icon {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  min-height: 300px;
-  padding-left: 2rem;
-}
-
-.hero-icon i {
-  margin-right: 1rem;
-}
-
-/* Enhanced hero icon positioning */
-.hero-icon-container {
   position: relative;
-  height: 100%;
-  display: flex;
-  align-items: center;
+  z-index: 2;
+  animation: fadeInUp 1s ease-out;
 }
 
-.hero-icon .fas {
-  transform: translateX(1rem);
-  transition: all 0.3s ease;
+.hero-title {
+  color: var(--white);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 2rem;
 }
 
-.hero-icon:hover .fas {
-  transform: translateX(1rem) scale(1.05);
-  opacity: 0.9 !important;
+.hero-accent {
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Add subtle animation to the shield */
+.hero-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.25rem;
+  font-weight: 300;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+}
+
+.hero-buttons {
+  animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+/* Floating Elements */
+.floating-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floating-icon {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.1);
+  font-size: 3rem;
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-icon-1 {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.floating-icon-2 {
+  top: 60%;
+  right: 15%;
+  animation-delay: 2s;
+}
+
+.floating-icon-3 {
+  bottom: 30%;
+  left: 20%;
+  animation-delay: 4s;
+}
+
+.floating-icon-4 {
+  top: 30%;
+  right: 25%;
+  animation-delay: 1s;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes float {
 
   0%,
   100% {
-    transform: translateX(1rem) translateY(0px);
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-20px) rotate(5deg);
   }
 
   50% {
-    transform: translateX(1rem) translateY(-10px);
+    transform: translateY(-10px) rotate(-5deg);
+  }
+
+  75% {
+    transform: translateY(-30px) rotate(3deg);
   }
 }
 
-.hero-icon .fas {
-  animation: float 4s ease-in-out infinite;
+/* Button Styles */
+.btn-dark {
+  background-color: var(--primary-black);
+  border-color: var(--primary-black);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border-radius: 50px;
+}
+
+.btn-dark:hover {
+  background-color: var(--secondary-black);
+  border-color: var(--secondary-black);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px var(--shadow-dark);
+}
+
+.btn-outline-dark {
+  color: var(--white);
+  border-color: var(--white);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border-radius: 50px;
+  border-width: 2px;
+}
+
+.btn-outline-dark:hover {
+  background-color: var(--white);
+  border-color: var(--white);
+  color: var(--primary-black);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
+}
+
+.btn-light {
+  background-color: var(--white);
+  border-color: var(--white);
+  color: var(--primary-black);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border-radius: 50px;
+}
+
+.btn-light:hover {
+  background-color: var(--light-gray);
+  border-color: var(--light-gray);
+  color: var(--primary-black);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px var(--shadow-medium);
+}
+
+/* Feature Cards */
+.feature-card {
+  transition: all 0.3s ease;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px var(--shadow-medium);
+}
+
+.feature-card .fas {
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .fas {
+  transform: scale(1.1);
+}
+
+/* Text Styles */
+.text-dark {
+  color: var(--primary-black) !important;
+}
+
+.bg-dark {
+  background-color: var(--primary-black) !important;
+}
+
+/* Navbar Enhancements */
+.navbar-dark .navbar-brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
 }
 
 /* Responsive adjustments */
 @media (max-width: 991.98px) {
-  .hero-content {
-    text-align: center;
-    margin-bottom: 2rem;
+  .display-4 {
+    font-size: 2.5rem;
   }
 
-  .hero-section {
-    min-height: auto;
-    padding: 3rem 0;
-  }
-
-  .hero-icon {
-    justify-content: center;
-    padding-left: 0;
-  }
-
-  .hero-icon i {
-    margin-right: 0;
-  }
-
-  .hero-icon .fas {
-    transform: translateX(0) !important;
-    animation: float-mobile 4s ease-in-out infinite;
-  }
-
-  .hero-icon:hover .fas {
-    transform: translateX(0) scale(1.05) !important;
+  .btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
   }
 }
 
-@keyframes float-mobile {
-
-  0%,
-  100% {
-    transform: translateX(0) translateY(0px);
+@media (max-width: 767.98px) {
+  .display-4 {
+    font-size: 2rem;
   }
 
-  50% {
-    transform: translateX(0) translateY(-10px);
+  .lead {
+    font-size: 1.1rem;
   }
 }
 
@@ -393,5 +560,113 @@
 
   .stats-card .card-body {
     padding: 1.5rem;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .floating-icon {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .floating-icon {
+    display: none;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-buttons .btn {
+    width: 250px;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-overlay {
+    padding: 2rem 0;
+  }
+
+  .display-5 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .feature-card {
+    margin-bottom: 2rem;
+  }
+}
+
+/* Performance Optimizations */
+.hero-gradient {
+  will-change: transform;
+}
+
+.floating-icon {
+  will-change: transform;
+}
+
+.feature-card {
+  will-change: transform;
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  .floating-icon {
+    animation: none;
+  }
+
+  .hero-content {
+    animation: none;
+  }
+
+  .hero-buttons {
+    animation: none;
+  }
+
+  .btn-dark:hover,
+  .btn-outline-dark:hover,
+  .btn-light:hover {
+    transform: none;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
   }
 }

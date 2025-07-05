@@ -12,11 +12,11 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
                 <Link className="navbar-brand" to="/">
                     <i className="fas fa-shield-alt me-2"></i>
-                    <strong>Secure Share</strong>
+                    <strong>SecureShare</strong>
                 </Link>
 
                 <button
