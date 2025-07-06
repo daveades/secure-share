@@ -15,7 +15,7 @@ const Navbar = () => {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
                 <Link className="navbar-brand" to="/">
-                    <i className="fas fa-shield-alt me-2"></i>
+                    <i className="fas fa-file-shield me-2"></i>
                     <strong>SecureShare</strong>
                 </Link>
 

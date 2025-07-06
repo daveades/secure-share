@@ -86,17 +86,18 @@ const Register = () => {
     };
 
     return (
-        <div className="auth-page">
-            <Container className="auth-container">
-                <Row className="justify-content-center w-100">
-                    <Col md={6} lg={5} xl={4}>
-                        <div className="auth-card-wrapper">
-                            <Card className="shadow-lg border-0">
+        <div className="auth-gradient-page">
+            <div className="auth-gradient-overlay">
+                <Container className="h-100 d-flex align-items-center justify-content-center">
+                    <Row className="justify-content-center w-100">
+                        <Col md={6} lg={5} xl={4}>
+                            <div className="auth-card-wrapper">
+                                <Card className="shadow-lg border-0 auth-glass-card">
                                 <Card.Body className="p-5">
                                     <div className="text-center mb-4">
-                                        <i className="fas fa-shield-alt text-primary mb-3" style={{ fontSize: '3rem' }}></i>
-                                        <h2 className="fw-bold">Create Account</h2>
-                                        <p className="text-muted">Join Secure Share for safe file sharing</p>
+                                        <i className="fas fa-file-shield text-dark mb-3" style={{ fontSize: '3rem' }}></i>
+                                        <h2 className="fw-bold text-dark">Create Account</h2>
+                                        <p className="text-muted">Join SecureShare for safe file sharing</p>
                                     </div>
 
                                     {success && (
@@ -182,7 +183,7 @@ const Register = () => {
 
                                         <Button
                                             type="submit"
-                                            variant="primary"
+                                            variant="dark"
                                             size="lg"
                                             className="w-100 mb-3"
                                             disabled={isLoading || success}
@@ -212,7 +213,7 @@ const Register = () => {
                                     <div className="text-center">
                                         <p className="text-muted mb-0">
                                             Already have an account?{' '}
-                                            <Link to="/login" className="text-primary fw-bold text-decoration-none">
+                                            <Link to="/login" className="text-dark fw-bold text-decoration-none">
                                                 Sign in here
                                             </Link>
                                         </p>
@@ -223,6 +224,7 @@ const Register = () => {
                     </Col>
                 </Row>
             </Container>
+            </div>
         </div>
     );
 };

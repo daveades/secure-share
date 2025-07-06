@@ -99,11 +99,11 @@ const Dashboard = () => {
                     <Col>
                         <div className="d-flex justify-content-between align-items-center">
                             <div>
-                                <h2 className="mb-1">Dashboard</h2>
+                                <h2 className="mb-1 text-dark">Dashboard</h2>
                                 <p className="text-muted mb-0">Welcome back, {user?.name || 'User'}!</p>
                             </div>
                             <div className="d-flex gap-2">
-                                <Button variant="outline-success" size="sm">
+                                <Button variant="outline-dark" size="sm">
                                     <i className="fas fa-cog me-2"></i>Settings
                                 </Button>
                             </div>
@@ -148,7 +148,7 @@ const Dashboard = () => {
                     <Col lg={4} className="mb-4">
                         <Card className="h-100 border-0 shadow-sm">
                             <Card.Header className="bg-transparent border-0">
-                                <h5 className="mb-0">
+                                <h5 className="mb-0 text-dark">
                                     <i className="fas fa-cloud-upload-alt me-2"></i>
                                     Upload Files
                                 </h5>
@@ -172,12 +172,12 @@ const Dashboard = () => {
                         <Card className="border-0 shadow-sm">
                             <Card.Header className="bg-transparent border-0">
                                 <div className="d-flex justify-content-between align-items-center">
-                                    <h5 className="mb-0">
+                                    <h5 className="mb-0 text-dark">
                                         <i className="fas fa-folder-open me-2"></i>
                                         Your Files
                                     </h5>
                                     {files.length > 0 && (
-                                        <Button variant="outline-secondary" size="sm">
+                                        <Button variant="outline-dark" size="sm">
                                             <i className="fas fa-download me-2"></i>
                                             Download All
                                         </Button>
@@ -221,17 +221,17 @@ const Dashboard = () => {
                                                         </td>
                                                         <td>
                                                             {file.shareLink ? (
-                                                                <Badge bg="success">
+                                                                <Badge bg="dark">
                                                                     <i className="fas fa-share me-1"></i>Shared
                                                                 </Badge>
                                                             ) : (
-                                                                <Badge bg="secondary">Private</Badge>
+                                                                <Badge bg="light" text="dark">Private</Badge>
                                                             )}
                                                         </td>
                                                         <td className="text-end">
                                                             <div className="btn-group btn-group-sm">
                                                                 <Button
-                                                                    variant="outline-success"
+                                                                    variant="outline-dark"
                                                                     size="sm"
                                                                     onClick={() => handleShare(file)}
                                                                     title="Share file"
@@ -239,7 +239,7 @@ const Dashboard = () => {
                                                                     <i className="fas fa-share"></i>
                                                                 </Button>
                                                                 <Button
-                                                                    variant="outline-info"
+                                                                    variant="outline-dark"
                                                                     size="sm"
                                                                     title="Download file"
                                                                 >
@@ -269,7 +269,7 @@ const Dashboard = () => {
                 {/* Share Modal */}
                 <Modal show={showShareModal} onHide={() => setShowShareModal(false)} centered>
                     <Modal.Header closeButton>
-                        <Modal.Title>
+                        <Modal.Title className="text-dark">
                             <i className="fas fa-share me-2"></i>
                             Share File
                         </Modal.Title>
@@ -326,10 +326,10 @@ const Dashboard = () => {
                         )}
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={() => setShowShareModal(false)}>
+                        <Button variant="light" onClick={() => setShowShareModal(false)}>
                             Cancel
                         </Button>
-                        <Button variant="success" onClick={generateShareLink}>
+                        <Button variant="dark" onClick={generateShareLink}>
                             <i className="fas fa-link me-2"></i>
                             Generate Share Link
                         </Button>
