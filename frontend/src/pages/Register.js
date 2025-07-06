@@ -93,137 +93,137 @@ const Register = () => {
                         <Col md={6} lg={5} xl={4}>
                             <div className="auth-card-wrapper">
                                 <Card className="shadow-lg border-0 auth-glass-card">
-                                <Card.Body className="p-5">
-                                    <div className="text-center mb-4">
-                                        <i className="fas fa-file-shield text-dark mb-3" style={{ fontSize: '3rem' }}></i>
-                                        <h2 className="fw-bold text-dark">Create Account</h2>
-                                        <p className="text-muted">Join SecureShare for safe file sharing</p>
-                                    </div>
+                                    <Card.Body className="p-5">
+                                        <div className="text-center mb-4">
+                                            <i className="fas fa-file-shield text-dark mb-3" style={{ fontSize: '3rem' }}></i>
+                                            <h2 className="fw-bold text-dark">Create Account</h2>
+                                            <p className="text-muted">Join SecureShare for safe file sharing</p>
+                                        </div>
 
-                                    {success && (
-                                        <Alert variant="success" className="mb-4">
-                                            <i className="fas fa-check-circle me-2"></i>
-                                            Account created successfully! Redirecting to login...
-                                        </Alert>
-                                    )}
+                                        {success && (
+                                            <Alert variant="success" className="mb-4">
+                                                <i className="fas fa-check-circle me-2"></i>
+                                                Account created successfully! Redirecting to login...
+                                            </Alert>
+                                        )}
 
-                                    {errors.general && (
-                                        <Alert variant="danger" className="mb-4">
-                                            {errors.general}
-                                        </Alert>
-                                    )}
+                                        {errors.general && (
+                                            <Alert variant="danger" className="mb-4">
+                                                {errors.general}
+                                            </Alert>
+                                        )}
 
-                                    <Form onSubmit={handleSubmit}>
-                                        <Form.Group className="mb-3">
-                                            <Form.Label>Full Name</Form.Label>
-                                            <Form.Control
-                                                type="text"
-                                                name="name"
-                                                value={formData.name}
-                                                onChange={handleChange}
-                                                isInvalid={!!errors.name}
-                                                placeholder="Enter your full name"
+                                        <Form onSubmit={handleSubmit}>
+                                            <Form.Group className="mb-3">
+                                                <Form.Label>Full Name</Form.Label>
+                                                <Form.Control
+                                                    type="text"
+                                                    name="name"
+                                                    value={formData.name}
+                                                    onChange={handleChange}
+                                                    isInvalid={!!errors.name}
+                                                    placeholder="Enter your full name"
+                                                    size="lg"
+                                                />
+                                                <Form.Control.Feedback type="invalid">
+                                                    {errors.name}
+                                                </Form.Control.Feedback>
+                                            </Form.Group>
+
+                                            <Form.Group className="mb-3">
+                                                <Form.Label>Email Address</Form.Label>
+                                                <Form.Control
+                                                    type="email"
+                                                    name="email"
+                                                    value={formData.email}
+                                                    onChange={handleChange}
+                                                    isInvalid={!!errors.email}
+                                                    placeholder="Enter your email"
+                                                    size="lg"
+                                                />
+                                                <Form.Control.Feedback type="invalid">
+                                                    {errors.email}
+                                                </Form.Control.Feedback>
+                                            </Form.Group>
+
+                                            <Form.Group className="mb-3">
+                                                <Form.Label>Password</Form.Label>
+                                                <Form.Control
+                                                    type="password"
+                                                    name="password"
+                                                    value={formData.password}
+                                                    onChange={handleChange}
+                                                    isInvalid={!!errors.password}
+                                                    placeholder="Create a strong password"
+                                                    size="lg"
+                                                />
+                                                <Form.Control.Feedback type="invalid">
+                                                    {errors.password}
+                                                </Form.Control.Feedback>
+                                                <Form.Text className="text-muted">
+                                                    Must be at least 8 characters with uppercase, lowercase, and number
+                                                </Form.Text>
+                                            </Form.Group>
+
+                                            <Form.Group className="mb-4">
+                                                <Form.Label>Confirm Password</Form.Label>
+                                                <Form.Control
+                                                    type="password"
+                                                    name="confirmPassword"
+                                                    value={formData.confirmPassword}
+                                                    onChange={handleChange}
+                                                    isInvalid={!!errors.confirmPassword}
+                                                    placeholder="Confirm your password"
+                                                    size="lg"
+                                                />
+                                                <Form.Control.Feedback type="invalid">
+                                                    {errors.confirmPassword}
+                                                </Form.Control.Feedback>
+                                            </Form.Group>
+
+                                            <Button
+                                                type="submit"
+                                                variant="dark"
                                                 size="lg"
-                                            />
-                                            <Form.Control.Feedback type="invalid">
-                                                {errors.name}
-                                            </Form.Control.Feedback>
-                                        </Form.Group>
+                                                className="w-100 mb-3"
+                                                disabled={isLoading || success}
+                                            >
+                                                {isLoading ? (
+                                                    <>
+                                                        <Spinner
+                                                            as="span"
+                                                            animation="border"
+                                                            size="sm"
+                                                            role="status"
+                                                            className="me-2"
+                                                        />
+                                                        Creating Account...
+                                                    </>
+                                                ) : success ? (
+                                                    <>
+                                                        <i className="fas fa-check me-2"></i>
+                                                        Account Created!
+                                                    </>
+                                                ) : (
+                                                    'Create Account'
+                                                )}
+                                            </Button>
+                                        </Form>
 
-                                        <Form.Group className="mb-3">
-                                            <Form.Label>Email Address</Form.Label>
-                                            <Form.Control
-                                                type="email"
-                                                name="email"
-                                                value={formData.email}
-                                                onChange={handleChange}
-                                                isInvalid={!!errors.email}
-                                                placeholder="Enter your email"
-                                                size="lg"
-                                            />
-                                            <Form.Control.Feedback type="invalid">
-                                                {errors.email}
-                                            </Form.Control.Feedback>
-                                        </Form.Group>
-
-                                        <Form.Group className="mb-3">
-                                            <Form.Label>Password</Form.Label>
-                                            <Form.Control
-                                                type="password"
-                                                name="password"
-                                                value={formData.password}
-                                                onChange={handleChange}
-                                                isInvalid={!!errors.password}
-                                                placeholder="Create a strong password"
-                                                size="lg"
-                                            />
-                                            <Form.Control.Feedback type="invalid">
-                                                {errors.password}
-                                            </Form.Control.Feedback>
-                                            <Form.Text className="text-muted">
-                                                Must be at least 8 characters with uppercase, lowercase, and number
-                                            </Form.Text>
-                                        </Form.Group>
-
-                                        <Form.Group className="mb-4">
-                                            <Form.Label>Confirm Password</Form.Label>
-                                            <Form.Control
-                                                type="password"
-                                                name="confirmPassword"
-                                                value={formData.confirmPassword}
-                                                onChange={handleChange}
-                                                isInvalid={!!errors.confirmPassword}
-                                                placeholder="Confirm your password"
-                                                size="lg"
-                                            />
-                                            <Form.Control.Feedback type="invalid">
-                                                {errors.confirmPassword}
-                                            </Form.Control.Feedback>
-                                        </Form.Group>
-
-                                        <Button
-                                            type="submit"
-                                            variant="dark"
-                                            size="lg"
-                                            className="w-100 mb-3"
-                                            disabled={isLoading || success}
-                                        >
-                                            {isLoading ? (
-                                                <>
-                                                    <Spinner
-                                                        as="span"
-                                                        animation="border"
-                                                        size="sm"
-                                                        role="status"
-                                                        className="me-2"
-                                                    />
-                                                    Creating Account...
-                                                </>
-                                            ) : success ? (
-                                                <>
-                                                    <i className="fas fa-check me-2"></i>
-                                                    Account Created!
-                                                </>
-                                            ) : (
-                                                'Create Account'
-                                            )}
-                                        </Button>
-                                    </Form>
-
-                                    <div className="text-center">
-                                        <p className="text-muted mb-0">
-                                            Already have an account?{' '}
-                                            <Link to="/login" className="text-dark fw-bold text-decoration-none">
-                                                Sign in here
-                                            </Link>
-                                        </p>
-                                    </div>
-                                </Card.Body>
-                            </Card>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
+                                        <div className="text-center">
+                                            <p className="text-muted mb-0">
+                                                Already have an account?{' '}
+                                                <Link to="/login" className="text-dark fw-bold text-decoration-none">
+                                                    Sign in here
+                                                </Link>
+                                            </p>
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
             </div>
         </div>
     );

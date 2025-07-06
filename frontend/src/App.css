@@ -579,6 +579,31 @@ body {
   border-color: #1e7e34;
 }
 
+/* Sticky table header */
+.files-table-container .sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--light-gray) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile responsive adjustments for dashboard layout */
+@media (max-width: 991.98px) {
+  .dashboard-main-row {
+    flex-direction: column;
+  }
+  
+  .dashboard-upload-col,
+  .dashboard-files-col {
+    flex: none;
+  }
+  
+  .files-table-container {
+    max-height: 400px;
+  }
+}
+
 /* Responsive adjustments for dashboard */
 @media (max-width: 768px) {
   .dashboard-page .container-fluid {
@@ -754,12 +779,10 @@ body {
 }
 
 .auth-gradient-overlay {
-  background: linear-gradient(
-    135deg,
-    rgba(0, 0, 0, 0.6) 0%,
-    rgba(0, 0, 0, 0.4) 50%,
-    rgba(0, 0, 0, 0.7) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.4) 50%,
+      rgba(0, 0, 0, 0.7) 100%);
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -773,12 +796,77 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 20px,
-    rgba(255, 255, 255, 0.08) 20px,
-    rgba(255, 255, 255, 0.08) 40px
-  );
+  background: repeating-linear-gradient(45deg,
+      transparent,
+      transparent 20px,
+      rgba(255, 255, 255, 0.08) 20px,
+      rgba(255, 255, 255, 0.08) 40px);
   opacity: 0.3;
+}
+
+/* Dashboard Layout Fixes */
+.dashboard-main-row {
+  display: flex;
+  align-items: stretch;
+}
+
+.dashboard-upload-col,
+.dashboard-files-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-upload-card,
+.dashboard-files-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-upload-card .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dashboard-files-card .card-body {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 600px;
+}
+
+/* Ensure upload section takes up available space */
+.file-upload-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-limits-info {
+  margin-top: auto;
+}
+
+/* Table container for scrolling */
+.files-table-container {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.files-table-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.files-table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.files-table-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.files-table-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }

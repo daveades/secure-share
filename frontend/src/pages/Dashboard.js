@@ -143,10 +143,10 @@ const Dashboard = () => {
                 </Row>
 
                 {/* Main Content */}
-                <Row>
+                <Row className="dashboard-main-row">
                     {/* File Upload Section */}
-                    <Col lg={4} className="mb-4">
-                        <Card className="h-100 border-0 shadow-sm">
+                    <Col lg={4} className="mb-4 dashboard-upload-col">
+                        <Card className="h-100 border-0 shadow-sm dashboard-upload-card">
                             <Card.Header className="bg-transparent border-0">
                                 <h5 className="mb-0 text-dark">
                                     <i className="fas fa-cloud-upload-alt me-2"></i>
@@ -154,9 +154,11 @@ const Dashboard = () => {
                                 </h5>
                             </Card.Header>
                             <Card.Body>
-                                <FileUpload onFileUpload={handleFileUpload} />
+                                <div className="file-upload-container">
+                                    <FileUpload onFileUpload={handleFileUpload} />
+                                </div>
 
-                                <div className="mt-3 p-3 bg-light rounded">
+                                <div className="mt-3 p-3 bg-light rounded upload-limits-info">
                                     <small className="text-muted">
                                         <strong>Upload Limits:</strong><br />
                                         Max file size: {formatFileSize(config.MAX_FILE_SIZE)}<br />
@@ -168,8 +170,8 @@ const Dashboard = () => {
                     </Col>
 
                     {/* Files List */}
-                    <Col lg={8}>
-                        <Card className="border-0 shadow-sm">
+                    <Col lg={8} className="dashboard-files-col">
+                        <Card className="border-0 shadow-sm dashboard-files-card">
                             <Card.Header className="bg-transparent border-0">
                                 <div className="d-flex justify-content-between align-items-center">
                                     <h5 className="mb-0 text-dark">
@@ -192,9 +194,9 @@ const Dashboard = () => {
                                         <p className="text-muted">Start by uploading your first file!</p>
                                     </div>
                                 ) : (
-                                    <div className="table-responsive">
+                                    <div className="files-table-container">
                                         <Table hover className="mb-0">
-                                            <thead className="bg-light">
+                                            <thead className="bg-light sticky-top">
                                                 <tr>
                                                     <th>File</th>
                                                     <th>Size</th>
