@@ -17,8 +17,9 @@ RUN pip install pymongo
 
 # Copy Scripts
 COPY init-mongo.py /app/
-COPY wait-for-mongo.sh /app/
+COPY wait-for-mongo.py /app/
 
-RUN chmod +x /app/wait-for-mongo.sh
+# Make the Python script executable
+RUN chmod +x /app/wait-for-mongo.py
 
-CMD ["/app/wait-for-mongo.sh"]
+CMD ["/app/wait-for-mongo.py"]
