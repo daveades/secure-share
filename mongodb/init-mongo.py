@@ -12,7 +12,7 @@ db_name = os.environ.get("DB_NAME", "secure_share")
 # Connect to MongoDB
 # Hostname is mongodb, service name in docker-compose
 client = pymongo.MongoClient(
-    f"mongodb://{mongo_root_user}:{mongo_root_password}@mongodb:27017/admin"
+    f"mongodb://{mongo_root_user}:{mongo_root_password}@mongodb:27017/admin?authSource=admin&retryWrites=true&w=majority"
 )
 
 # Create the database for the app
