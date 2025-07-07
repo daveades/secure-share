@@ -514,14 +514,12 @@ body {
 }
 
 .file-drop-area {
-  flex-shrink: 0;
   border: 2px dashed #28a745;
   border-radius: 12px;
-  padding: 2rem 1rem;
+  padding: 3rem 2rem;
   background-color: #f8fff9;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-bottom: 1rem;
 }
 
 .file-drop-area:hover {
@@ -605,15 +603,12 @@ body {
   .dashboard-upload-card .card-body,
   .dashboard-files-card .card-body {
     min-height: 300px;
-    max-height: 400px;
-  }  .files-table-container {
+  }
+
+  .files-table-container {
     max-height: 400px;
   }
-  
-  .selected-files .files-list {
-    max-height: 200px;
-  }
-  
+
   .no-files-message {
     min-height: 250px;
   }
@@ -826,13 +821,14 @@ body {
 .dashboard-main-row {
   display: flex;
   align-items: stretch;
-  min-height: 600px;
+  min-height: 200px;
 }
 
 .dashboard-upload-col,
 .dashboard-files-col {
   display: flex;
   flex-direction: column;
+  margin-bottom: 0 !important;
 }
 
 .dashboard-upload-card,
@@ -847,9 +843,10 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  justify-content: space-between;
   min-height: 500px;
-  max-height: 600px;
+  max-height: 500px;
+  overflow-y: auto;
 }
 
 .dashboard-files-card .card-body {
@@ -877,43 +874,13 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  height: 100%;
-}
-
-/* Selected files container with scroll */
-.selected-files {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.selected-files .files-list {
-  flex: 1;
+  justify-content: flex-start;
   overflow-y: auto;
-  max-height: 300px;
-  margin-bottom: 1rem;
-}
-
-.selected-files .files-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.selected-files .files-list::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 3px;
-}
-
-.selected-files .files-list::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 3px;
-}
-
-.selected-files .files-list::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  max-height: 400px;
 }
 
 .upload-limits-info {
+  margin-top: auto;
   flex-shrink: 0;
 }
 
