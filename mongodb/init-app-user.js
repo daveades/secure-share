@@ -4,3 +4,4 @@ db.createUser({
   pwd:  process.env.MONGO_APP_PASSWORD,
   roles:[{role:"readWrite",db:process.env.DB_NAME}]
 });
+print('User created successfully');
