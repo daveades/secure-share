@@ -8,8 +8,7 @@ app_username = os.environ.get("MONGO_APP_USERNAME")
 app_password = os.environ.get("MONGO_APP_PASSWORD")
 
 # Database name for the application
-db_name = "secure_share"
-
+db_name = os.environ.get("DB_NAME", "secure_share")
 # Connect to MongoDB
 # Hostname is mongodb, service name in docker-compose
 client = pymongo.MongoClient(
