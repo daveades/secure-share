@@ -3,6 +3,7 @@ import os
 import sys
 import time
 import pymongo
+import subprocess
 
 def wait_for_mongodb():
     # Get environment variables
@@ -39,10 +40,18 @@ def wait_for_mongodb():
             print("MongoDB is up and running!")
             print("Running initialization script...")
             
-            # Run the initialization script
-            import subprocess
-            result = subprocess.run(["python", "/app/init-mongo.py"], check=True)
-            return result.returncode
+            # Run the initialization script with better error handling and output capture
+            print("Executing init-mongo.py...", flush=True)
+            # spawn it with stdout/stderr hooked straight to ours
+            proc = subprocess.Popen(
+                ["python", "/app/init-mongo.py"],
+                stdout=sys.stdout,
+                stderr=sys.stderr,
+                text=True
+            )
+            ret = proc.wait()
+            print(f"init-mongo.py exit code: {ret}", flush=True)
+            return ret
             
         except (pymongo.errors.ServerSelectionTimeoutError, 
                 pymongo.errors.ConnectionFailure, 
