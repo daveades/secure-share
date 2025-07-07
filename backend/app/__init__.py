@@ -43,9 +43,9 @@ def create_app(test_config=None):
     def health_check():
         return {'status': 'ok'}
 
-    # Import and register blueprints here
-    # from app.routes import auth_bp, user_bp
-    # app.register_blueprint(auth_bp)
-    # app.register_blueprint(user_bp)
+    # Import and register blueprints
+    from app.routes import auth_bp, user_bp
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(user_bp)
 
     return app
