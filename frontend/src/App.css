@@ -592,6 +592,7 @@ body {
 @media (max-width: 991.98px) {
   .dashboard-main-row {
     flex-direction: column;
+    min-height: auto;
   }
   
   .dashboard-upload-col,
@@ -599,8 +600,17 @@ body {
     flex: none;
   }
   
+  .dashboard-upload-card .card-body,
+  .dashboard-files-card .card-body {
+    min-height: 300px;
+  }
+  
   .files-table-container {
     max-height: 400px;
+  }
+  
+  .no-files-message {
+    min-height: 250px;
   }
 }
 
@@ -729,21 +739,22 @@ body {
 
 /* Dashboard Specific Styles */
 .dashboard-page {
-  background-color: var(--light-gray);
+  background: linear-gradient(135deg, #ecf0f1 0%, #ffffff 100%);
   min-height: 100vh;
 }
 
-.stats-card {
+/* Override any conflicting stats card styles */
+.dashboard-page .stats-card {
   transition: all 0.3s ease;
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #ecf0f1 100%);
 }
 
-.stats-card:hover {
+.dashboard-page .stats-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px var(--shadow-medium);
 }
 
-.stats-card .fas {
+.dashboard-page .stats-card .fas {
   color: var(--primary-black);
 }
 
@@ -808,6 +819,7 @@ body {
 .dashboard-main-row {
   display: flex;
   align-items: stretch;
+  min-height: 600px;
 }
 
 .dashboard-upload-col,
@@ -821,6 +833,7 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .dashboard-upload-card .card-body {
@@ -828,12 +841,24 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height: 500px;
 }
 
 .dashboard-files-card .card-body {
   flex: 1;
   overflow-y: auto;
+  min-height: 500px;
   max-height: 600px;
+}
+
+/* Center the no files message */
+.no-files-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  text-align: center;
 }
 
 /* Ensure upload section takes up available space */
@@ -841,10 +866,12 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .upload-limits-info {
   margin-top: auto;
+  flex-shrink: 0;
 }
 
 /* Table container for scrolling */

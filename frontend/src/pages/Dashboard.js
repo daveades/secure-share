@@ -188,9 +188,9 @@ const Dashboard = () => {
                             </Card.Header>
                             <Card.Body className="p-0">
                                 {files.length === 0 ? (
-                                    <div className="text-center py-5">
+                                    <div className="no-files-message">
                                         <i className="fas fa-cloud-upload-alt text-muted mb-3" style={{ fontSize: '3rem' }}></i>
-                                        <p className="text-muted mb-0">No files uploaded yet.</p>
+                                        <p className="text-muted mb-2">No files uploaded yet.</p>
                                         <p className="text-muted">Start by uploading your first file!</p>
                                     </div>
                                 ) : (
