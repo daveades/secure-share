@@ -1,9 +1,12 @@
 services:
   frontend:
-    build: 
+    build:
       context: ./frontend
     ports:
-      - "3000:3000"
+      - "80:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     depends_on:
       - backend
     networks:
@@ -21,7 +24,7 @@ services:
       - mongodb
     networks:
       - secure_share_network
-      
+
   mongodb:
     image: mongo:latest
     ports:
@@ -33,7 +36,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     networks:
       - secure_share_network
-  
+
   init-mongo:
     build:
       context: ./mongodb
@@ -50,6 +53,7 @@ services:
 
 networks:
   secure_share_network:
+
 
 volumes:
   mongo-data:
