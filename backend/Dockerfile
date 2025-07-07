@@ -1,6 +1,16 @@
 FROM python:3.11-slim
+
 WORKDIR /app
+
+# Install dependencies
 COPY requirements.txt .
 RUN pip --no-cache-dir install -r requirements.txt
+
+# Copy application code
 COPY . .
-CMD ["python", "app.py"]
+
+# Expose the port the app runs on
+EXPOSE 5000
+
+# Command to run the application
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]
