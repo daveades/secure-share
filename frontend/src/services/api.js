@@ -46,7 +46,7 @@ export const fileAPI = {
     uploadFile: async (file, options = {}) => {
         const formData = new FormData();
         formData.append('file', file);
-        
+
         if (options.expirationHours) {
             formData.append('expiration_hours', options.expirationHours);
         }
@@ -56,7 +56,7 @@ export const fileAPI = {
         if (options.downloadLimit) {
             formData.append('download_limit', options.downloadLimit);
         }
-        
+
         return api.post('/files/upload', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -80,7 +80,7 @@ export const fileAPI = {
         const config = {
             responseType: 'blob',
         };
-        
+
         if (password) {
             return api.post(`/files/download/${fileId}`, { password }, config);
         } else {
@@ -103,7 +103,7 @@ export const fileAPI = {
         const config = {
             responseType: 'blob',
         };
-        
+
         if (password) {
             return api.post(`/files/share/${accessToken}/download`, { password }, config);
         } else {

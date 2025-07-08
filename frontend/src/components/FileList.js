@@ -35,7 +35,7 @@ const FileList = () => {
     const handleDownload = async (fileId, filename) => {
         try {
             const response = await fileAPI.downloadFile(fileId);
-            
+
             // Create blob and download
             const blob = new Blob([response.data]);
             const url = window.URL.createObjectURL(blob);
@@ -46,7 +46,7 @@ const FileList = () => {
             link.click();
             document.body.removeChild(link);
             window.URL.revokeObjectURL(url);
-            
+
             // Refresh files to update download count
             fetchFiles();
         } catch (error) {

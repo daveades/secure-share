@@ -610,7 +610,12 @@ body {
 }
 
 /* File Type Icons */
-.fa-file, .fa-file-pdf, .fa-file-alt, .fa-image, .fa-video, .fa-music {
+.fa-file,
+.fa-file-pdf,
+.fa-file-alt,
+.fa-image,
+.fa-video,
+.fa-music {
   font-size: 1.2em;
 }
 
@@ -620,15 +625,15 @@ body {
     padding: 1.5rem;
     min-height: 150px;
   }
-  
+
   .file-drop-area h5 {
     font-size: 1.1rem;
   }
-  
+
   .btn-group {
     flex-direction: column;
   }
-  
+
   .btn-group .btn {
     margin: 2px 0;
   }
@@ -641,18 +646,18 @@ body {
     border-color: #4a5568;
     color: #e2e8f0;
   }
-  
+
   .file-drop-area:hover,
   .file-drop-area.drag-active {
     background: #3182ce;
     border-color: #63b3ed;
   }
-  
+
   .selected-files {
     background: #2d3748;
     border: 1px solid #4a5568;
   }
-  
+
   .file-item:hover {
     background: #4a5568;
   }

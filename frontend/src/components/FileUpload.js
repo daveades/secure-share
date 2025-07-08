@@ -127,7 +127,7 @@ const FileUpload = ({ onFileUpload }) => {
             // Process each file
             for (let i = 0; i < selectedFiles.length; i++) {
                 const file = selectedFiles[i];
-                
+
                 // Prepare upload options
                 const options = {
                     expirationHours: uploadOptions.expirationHours,
@@ -147,7 +147,7 @@ const FileUpload = ({ onFileUpload }) => {
 
                 // Upload file
                 const response = await fileAPI.uploadFile(file, options);
-                
+
                 if (response.data.success) {
                     uploadedFiles.push({
                         ...response.data.data,
@@ -160,7 +160,7 @@ const FileUpload = ({ onFileUpload }) => {
 
             // Success
             setSuccess(`Successfully uploaded ${uploadedFiles.length} file${uploadedFiles.length > 1 ? 's' : ''}`);
-            
+
             // Call parent callback
             if (onFileUpload) {
                 uploadedFiles.forEach(file => onFileUpload(file));
