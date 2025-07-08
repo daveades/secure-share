@@ -23,7 +23,7 @@ const SharedFile = () => {
             setLoading(true);
             setError(null);
             const response = await fileAPI.getSharedFileInfo(accessToken);
-            
+
             if (response.data.success) {
                 setFileInfo(response.data.data);
                 setShowPasswordForm(response.data.data.has_password);
@@ -45,7 +45,7 @@ const SharedFile = () => {
             setError(null);
 
             const response = await fileAPI.downloadSharedFile(
-                accessToken, 
+                accessToken,
                 fileInfo.has_password ? password : null
             );
 
@@ -261,8 +261,8 @@ const SharedFile = () => {
                                             <div className="text-center">
                                                 <i className="fas fa-ban text-danger mb-3" style={{ fontSize: '2rem' }}></i>
                                                 <h6 className="text-danger">
-                                                    {isExpired(fileInfo.expiration_date) 
-                                                        ? 'This file has expired' 
+                                                    {isExpired(fileInfo.expiration_date)
+                                                        ? 'This file has expired'
                                                         : 'Download limit reached'}
                                                 </h6>
                                                 <p className="text-muted">This file is no longer available for download.</p>
