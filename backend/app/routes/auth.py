@@ -6,7 +6,7 @@ from app.services.auth_service import AuthService
 from app.utils.auth import token_required
 
 # Create blueprint
-auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
+auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/register', methods=['POST'])
 def register():

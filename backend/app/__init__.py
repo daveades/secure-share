@@ -47,7 +47,7 @@ def create_app(test_config=None):
     # Import and register blueprints
     from app.routes import auth_bp, user_bp, file_bp
     app.register_blueprint(auth_bp, url_prefix='/api')
-    app.register_blueprint(user_bp, url_prefix='/api')
-    app.register_blueprint(file_bp, url_prefix='/api')
+    app.register_blueprint(user_bp, url_prefix='/api/users')
+    app.register_blueprint(file_bp, url_prefix='/api/files')
 
     return app

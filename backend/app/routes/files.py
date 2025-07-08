@@ -8,7 +8,7 @@ from app.services.file_service import FileService
 from app.utils.auth import token_required
 
 
-file_bp = Blueprint('files', __name__, url_prefix='/api/files')
+file_bp = Blueprint('files', __name__)
 file_service = FileService()
 
 

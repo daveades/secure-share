@@ -6,7 +6,7 @@ from app.models import User
 from app.utils.auth import token_required, admin_required
 
 # Create blueprint
-user_bp = Blueprint('users', __name__, url_prefix='/users')
+user_bp = Blueprint('users', __name__)
 
 @user_bp.route('', methods=['GET'])
 @admin_required
