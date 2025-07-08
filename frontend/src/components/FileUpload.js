@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { Button, ProgressBar, Alert } from 'react-bootstrap';
+import { Button, ProgressBar, Alert, Form, Row, Col, Modal } from 'react-bootstrap';
 import config from '../config/config';
+import { fileAPI } from '../services/api';
 
 const FileUpload = ({ onFileUpload }) => {
     const [selectedFiles, setSelectedFiles] = useState([]);
@@ -8,6 +9,13 @@ const FileUpload = ({ onFileUpload }) => {
     const [uploadProgress, setUploadProgress] = useState(0);
     const [dragActive, setDragActive] = useState(false);
     const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
+    const [showOptionsModal, setShowOptionsModal] = useState(false);
+    const [uploadOptions, setUploadOptions] = useState({
+        expirationHours: 24,
+        password: '',
+        downloadLimit: ''
+    });
     const fileInputRef = useRef(null);
 
     const validateFile = (file) => {
@@ -111,35 +119,68 @@ const FileUpload = ({ onFileUpload }) => {
         setUploading(true);
         setUploadProgress(0);
         setError(null);
+        setSuccess(null);
 
         try {
-            // Simulate upload with progress
-            await simulateUploadProgress();
+            const uploadedFiles = [];
 
             // Process each file
-            for (const file of selectedFiles) {
-                console.log('Uploading file:', file);
+            for (let i = 0; i < selectedFiles.length; i++) {
+                const file = selectedFiles[i];
+                
+                // Prepare upload options
+                const options = {
+                    expirationHours: uploadOptions.expirationHours,
+                    onProgress: (progressEvent) => {
+                        const fileProgress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        const totalProgress = ((i * 100) + fileProgress) / selectedFiles.length;
+                        setUploadProgress(totalProgress);
+                    }
+                };
 
-                if (onFileUpload) {
-                    onFileUpload({
-                        name: file.name,
-                        size: file.size,
-                        type: file.type,
+                if (uploadOptions.password) {
+                    options.password = uploadOptions.password;
+                }
+                if (uploadOptions.downloadLimit) {
+                    options.downloadLimit = parseInt(uploadOptions.downloadLimit);
+                }
+
+                // Upload file
+                const response = await fileAPI.uploadFile(file, options);
+                
+                if (response.data.success) {
+                    uploadedFiles.push({
+                        ...response.data.data,
                         uploadDate: new Date().toISOString()
                     });
+                } else {
+                    throw new Error(response.data.message || 'Upload failed');
                 }
+            }
+
+            // Success
+            setSuccess(`Successfully uploaded ${uploadedFiles.length} file${uploadedFiles.length > 1 ? 's' : ''}`);
+            
+            // Call parent callback
+            if (onFileUpload) {
+                uploadedFiles.forEach(file => onFileUpload(file));
             }
 
             // Reset form
             setSelectedFiles([]);
             setUploadProgress(0);
+            setUploadOptions({
+                expirationHours: 24,
+                password: '',
+                downloadLimit: ''
+            });
             if (fileInputRef.current) {
                 fileInputRef.current.value = '';
             }
 
         } catch (error) {
             console.error('Upload failed:', error);
-            setError('Upload failed. Please try again.');
+            setError(error.response?.data?.message || error.message || 'Upload failed. Please try again.');
         } finally {
             setUploading(false);
         }
@@ -149,11 +190,32 @@ const FileUpload = ({ onFileUpload }) => {
         setSelectedFiles(prev => prev.filter((_, i) => i !== index));
     };
 
+    const handleShowOptions = () => {
+        if (selectedFiles.length === 0) {
+            setError('Please select files first');
+            return;
+        }
+        setShowOptionsModal(true);
+    };
+
+    const handleOptionsChange = (field, value) => {
+        setUploadOptions(prev => ({
+            ...prev,
+            [field]: value
+        }));
+    };
+
     return (
         <div className="file-upload-container">
             {error && (
                 <Alert variant="danger" className="mb-3" dismissible onClose={() => setError(null)}>
                     {error}
+                </Alert>
+            )}
+
+            {success && (
+                <Alert variant="success" className="mb-3" dismissible onClose={() => setSuccess(null)}>
+                    {success}
                 </Alert>
             )}
 
@@ -232,6 +294,15 @@ const FileUpload = ({ onFileUpload }) => {
 
                     <div className="d-flex gap-2 mt-3">
                         <Button
+                            variant="outline-primary"
+                            onClick={handleShowOptions}
+                            disabled={uploading}
+                            className="flex-shrink-0"
+                        >
+                            <i className="fas fa-cog me-2"></i>
+                            Options
+                        </Button>
+                        <Button
                             variant="primary"
                             onClick={handleUpload}
                             disabled={uploading}
@@ -244,12 +315,82 @@ const FileUpload = ({ onFileUpload }) => {
                             variant="outline-secondary"
                             onClick={() => setSelectedFiles([])}
                             disabled={uploading}
+                            className="flex-shrink-0"
                         >
                             Clear
                         </Button>
                     </div>
                 </div>
             )}
+
+            {/* Upload Options Modal */}
+            <Modal show={showOptionsModal} onHide={() => setShowOptionsModal(false)} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Upload Options</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Row className="mb-3">
+                            <Col>
+                                <Form.Label>Expiration Time</Form.Label>
+                                <Form.Select
+                                    value={uploadOptions.expirationHours}
+                                    onChange={(e) => handleOptionsChange('expirationHours', parseInt(e.target.value))}
+                                >
+                                    {config.EXPIRATION_OPTIONS.map(option => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </Form.Select>
+                            </Col>
+                        </Row>
+
+                        <Row className="mb-3">
+                            <Col>
+                                <Form.Label>Password Protection (Optional)</Form.Label>
+                                <Form.Control
+                                    type="password"
+                                    placeholder="Enter password to protect files"
+                                    value={uploadOptions.password}
+                                    onChange={(e) => handleOptionsChange('password', e.target.value)}
+                                />
+                                <Form.Text className="text-muted">
+                                    Leave empty for no password protection
+                                </Form.Text>
+                            </Col>
+                        </Row>
+
+                        <Row className="mb-3">
+                            <Col>
+                                <Form.Label>Download Limit (Optional)</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    min="1"
+                                    max="100"
+                                    placeholder="Maximum number of downloads"
+                                    value={uploadOptions.downloadLimit}
+                                    onChange={(e) => handleOptionsChange('downloadLimit', e.target.value)}
+                                />
+                                <Form.Text className="text-muted">
+                                    Leave empty for unlimited downloads
+                                </Form.Text>
+                            </Col>
+                        </Row>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowOptionsModal(false)}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary" onClick={() => {
+                        setShowOptionsModal(false);
+                        handleUpload();
+                    }}>
+                        Upload Files
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };
