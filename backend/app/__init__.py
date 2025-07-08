@@ -18,6 +18,7 @@ def create_app(test_config=None):
         SECRET_KEY=os.environ.get('SECRET_KEY', 'dev'),
         MONGO_URI=os.environ.get('MONGO_URI', 'mongodb://mongo:27017/'),
         DB_NAME=os.environ.get('DB_NAME', 'secure_share'),
+        MAX_CONTENT_LENGTH=100 * 1024 * 1024,  # 100MB max file size
     )
 
     if test_config is None:
@@ -44,8 +45,9 @@ def create_app(test_config=None):
         return {'status': 'ok'}
 
     # Import and register blueprints
-    from app.routes import auth_bp, user_bp
+    from app.routes import auth_bp, user_bp, file_bp
     app.register_blueprint(auth_bp)
     app.register_blueprint(user_bp)
+    app.register_blueprint(file_bp)
 
     return app
