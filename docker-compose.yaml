@@ -35,6 +35,11 @@ services:
       context: ./frontend
     ports:
       - "80:3000"
+    environment:
+      - REACT_APP_API_URL=${REACT_APP_API_URL}
+      - REACT_APP_NAME=${REACT_APP_NAME}
+      - REACT_APP_VERSION=${REACT_APP_VERSION}
+      - GENERATE_SOURCEMAP=${GENERATE_SOURCEMAP}
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -42,21 +47,6 @@ services:
       - backend
     networks:
       - secure_share_network
-
-  # init-mongo:
-  #   build:
-  #     context: ./mongodb
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - mongodb
-  #   environment:
-  #     - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-  #     - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-  #     - MONGO_APP_USERNAME=${MONGO_APP_USERNAME}
-  #     - MONGO_APP_PASSWORD=${MONGO_APP_PASSWORD}
-  #     - DB_NAME=${DB_NAME}
-  #   networks:
-  #     - secure_share_network
 
 networks:
   secure_share_network:
