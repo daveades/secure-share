@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button, Alert, Spinner } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Register = () => {
     const [formData, setFormData] = useState({
-        name: '',
+        username: '',
         email: '',
         password: '',
         confirmPassword: ''
@@ -12,6 +13,7 @@ const Register = () => {
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+    const { register } = useAuth();
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -32,10 +34,12 @@ const Register = () => {
     const validateForm = () => {
         const newErrors = {};
 
-        if (!formData.name.trim()) {
-            newErrors.name = 'Full name is required';
-        } else if (formData.name.trim().length < 2) {
-            newErrors.name = 'Name must be at least 2 characters';
+        if (!formData.username.trim()) {
+            newErrors.username = 'Username is required';
+        } else if (formData.username.trim().length < 3) {
+            newErrors.username = 'Username must be at least 3 characters';
+        } else if (!/^[a-zA-Z0-9_]+$/.test(formData.username)) {
+            newErrors.username = 'Username can only contain letters, numbers, and underscores';
         }
 
         if (!formData.email) {
@@ -71,13 +75,15 @@ const Register = () => {
 
         setIsLoading(true);
         try {
-            // TODO: Implement actual registration logic
-            await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call
-            console.log('Registration attempt:', formData);
-            setSuccess(true);
-            setTimeout(() => {
-                navigate('/login');
-            }, 2000);
+            const result = await register(formData.username, formData.email, formData.password);
+            if (result.success) {
+                setSuccess(true);
+                setTimeout(() => {
+                    navigate('/login');
+                }, 2000);
+            } else {
+                setErrors({ general: result.error });
+            }
         } catch (err) {
             setErrors({ general: 'Registration failed. Please try again.' });
         } finally {
@@ -115,18 +121,18 @@ const Register = () => {
 
                                         <Form onSubmit={handleSubmit}>
                                             <Form.Group className="mb-3">
-                                                <Form.Label>Full Name</Form.Label>
+                                                <Form.Label>Username</Form.Label>
                                                 <Form.Control
                                                     type="text"
-                                                    name="name"
-                                                    value={formData.name}
+                                                    name="username"
+                                                    value={formData.username}
                                                     onChange={handleChange}
-                                                    isInvalid={!!errors.name}
-                                                    placeholder="Enter your full name"
+                                                    isInvalid={!!errors.username}
+                                                    placeholder="Enter your username"
                                                     size="lg"
                                                 />
                                                 <Form.Control.Feedback type="invalid">
-                                                    {errors.name}
+                                                    {errors.username}
                                                 </Form.Control.Feedback>
                                             </Form.Group>
 

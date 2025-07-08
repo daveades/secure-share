@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                const response = await api.get('/auth/verify');
+                const response = await api.get('/auth/me');
                 setUser(response.data.user);
             }
         } catch (error) {
@@ -40,14 +40,17 @@ export const AuthProvider = ({ children }) => {
         try {
             setError(null);
             setLoading(true);
-            const response = await api.post('/auth/login', { email, password });
-            const { user, token } = response.data;
+            const response = await api.post('/auth/login', { 
+                username_or_email: email, 
+                password 
+            });
+            const { user, tokens } = response.data;
 
-            localStorage.setItem('token', token);
+            localStorage.setItem('token', tokens.access_token);
             setUser(user);
             return { success: true };
         } catch (error) {
-            const errorMessage = error.response?.data?.message || 'Login failed';
+            const errorMessage = error.response?.data?.error || 'Login failed';
             setError(errorMessage);
             return { success: false, error: errorMessage };
         } finally {
@@ -55,18 +58,22 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const register = async (name, email, password) => {
+    const register = async (username, email, password) => {
         try {
             setError(null);
             setLoading(true);
-            const response = await api.post('/auth/register', { name, email, password });
-            const { user, token } = response.data;
+            const response = await api.post('/auth/register', { 
+                username, 
+                email, 
+                password 
+            });
+            const { user, tokens } = response.data;
 
-            localStorage.setItem('token', token);
+            localStorage.setItem('token', tokens.access_token);
             setUser(user);
             return { success: true };
         } catch (error) {
-            const errorMessage = error.response?.data?.message || 'Registration failed';
+            const errorMessage = error.response?.data?.error || 'Registration failed';
             setError(errorMessage);
             return { success: false, error: errorMessage };
         } finally {

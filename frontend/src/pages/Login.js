@@ -56,10 +56,12 @@ const Login = () => {
 
         setIsLoading(true);
         try {
-            // TODO: Implement actual login logic
-            await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
-            console.log('Login attempt:', formData);
-            navigate('/dashboard');
+            const result = await login(formData.email, formData.password);
+            if (result.success) {
+                navigate('/dashboard');
+            } else {
+                setErrors({ general: result.error });
+            }
         } catch (err) {
             setErrors({ general: 'Login failed. Please try again.' });
         } finally {
