@@ -460,6 +460,7 @@ body {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
 /* Ensure proper spacing around auth forms */
@@ -764,6 +765,9 @@ body {
   display: flex;
   align-items: center;
   position: relative;
+  padding-top: 80px;
+  /* Push content down from navbar */
+  padding-bottom: 20px;
 }
 
 .auth-gradient-overlay::before {
@@ -871,4 +875,24 @@ body {
 
 .files-table-container::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
+}
+
+/* Additional responsive adjustments for auth pages */
+@media (max-height: 700px) {
+  .auth-gradient-overlay {
+    padding-top: 60px;
+    padding-bottom: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .auth-gradient-overlay {
+    padding-top: 70px;
+    padding-bottom: 15px;
+  }
+
+  .auth-card-wrapper {
+    margin: 0.5rem auto;
+    padding: 0 0.5rem;
+  }
 }
