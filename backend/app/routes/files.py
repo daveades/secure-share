@@ -22,7 +22,7 @@ def handle_file_too_large(e):
 
 @file_bp.route('/upload', methods=['POST'])
 @token_required
-def upload_file(current_user):
+def upload_fileuser(user_id):
     """Upload a file"""
     try:
         # Check if file is present
@@ -51,7 +51,7 @@ def upload_file(current_user):
         # Upload file
         success, message, file_data = file_service.upload_file(
             file=file,
-            uploader_id=current_user['user_id'],
+            uploader_id=user_id['user_id'],
             expiration_hours=expiration_hours,
             password=password,
             download_limit=download_limit
@@ -139,13 +139,13 @@ def get_file_info(file_id):
 
 @file_bp.route('/my-files', methods=['GET'])
 @token_required
-def get_my_files(current_user):
+def get_my_files(user_id):
     """Get all files uploaded by the current user"""
     try:
         include_expired = request.args.get('include_expired', 'false').lower() == 'true'
         
         success, message, files = file_service.get_user_files(
-            current_user['user_id'], 
+            user_id['user_id'], 
             include_expired
         )
         

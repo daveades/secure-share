@@ -90,7 +90,7 @@ def token_required(f):
         
         # Add user_id to kwargs
         kwargs['user_id'] = payload.get("user_id")
-        
+
         return f(*args, **kwargs)
     
     return decorated
