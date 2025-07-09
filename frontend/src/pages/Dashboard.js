@@ -47,6 +47,8 @@ const Dashboard = () => {
         setRefreshFileList(prev => !prev);
         // Switch to files tab to show uploaded file
         setActiveTab('files');
+        // Immediately fetch updated stats after upload
+        fetchDashboardStats();
     };
 
     const formatFileSize = (bytes) => {

@@ -107,7 +107,7 @@ const FileList = () => {
 
     const getStatusBadge = (file) => {
         if (!file.is_active) {
-            return <Badge bg="secondary">Inactive</Badge>;
+            return <Badge bg="secondary">Deleted</Badge>;
         }
         if (isExpired(file.expiration_date)) {
             return <Badge bg="warning">Expired</Badge>;
@@ -150,7 +150,7 @@ const FileList = () => {
                         <Form.Check
                             type="checkbox"
                             id="include-expired"
-                            label="Include expired files"
+                            label="Include expired / deleted files"
                             checked={includeExpired}
                             onChange={(e) => setIncludeExpired(e.target.checked)}
                         />
@@ -231,6 +231,7 @@ const FileList = () => {
                                                         size="sm"
                                                         onClick={() => handleDelete(file.file_id)}
                                                         title="Delete"
+                                                        disabled={!file.is_active} // Grey out if deleted
                                                     >
                                                         <i className="fas fa-trash"></i>
                                                     </Button>
