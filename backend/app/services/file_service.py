@@ -23,8 +23,15 @@ class FileService:
     MAX_FILE_SIZE = 100 * 1024 * 1024  # 100MB
     
     def __init__(self):
-        self.db = get_db()
-        self.fs = gridfs.GridFS(self.db)
+        pass
+    
+    def _get_db(self):
+        """Get a fresh database connection"""
+        return get_db()
+    
+    def _get_fs(self):
+        """Get a fresh GridFS connection"""
+        return gridfs.GridFS(self._get_db())
     
     def allowed_file(self, filename):
         """Check if file extension is allowed"""
@@ -85,7 +92,8 @@ class FileService:
             file_type = self.detect_file_type(file_content)
             
             # Store file in GridFS
-            file_id = self.fs.put(
+            fs = self._get_fs()
+            file_id = fs.put(
                 file_content,
                 filename=unique_filename,
                 original_filename=original_filename,
@@ -108,7 +116,8 @@ class FileService:
             
             # Generate access token for public sharing
             access_token = secrets.token_urlsafe(32)
-            self.db.files.update_one(
+            db = self._get_db()
+            db.files.update_one(
                 {'_id': File.get_file_by_id(file_record_id)['_id']},
                 {'$set': {'access_token': access_token, 'gridfs_id': file_id}}
             )
@@ -139,7 +148,8 @@ class FileService:
                 return False, "File not found", None, None, None
             
             # Get file from GridFS
-            gridfs_file = self.fs.get(file_record['gridfs_id'])
+            fs = self._get_fs()
+            gridfs_file = fs.get(file_record['gridfs_id'])
             file_content = gridfs_file.read()
             
             # Update download count
@@ -189,7 +199,8 @@ class FileService:
             
             # Delete from GridFS
             if 'gridfs_id' in file_record:
-                self.fs.delete(file_record['gridfs_id'])
+                fs = self._get_fs()
+                fs.delete(file_record['gridfs_id'])
             
             # Deactivate file record
             File.deactivate_file(file_id)

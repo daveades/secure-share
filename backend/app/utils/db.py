@@ -26,6 +26,15 @@ def get_mongo_client():
         except ConnectionFailure as e:
             print(f"Could not connect to MongoDB: {e}")
             raise
+    
+    # Check if the connection is still alive
+    try:
+        _mongo_client.admin.command('ping')
+    except Exception as e:
+        print(f"MongoDB connection lost, reconnecting: {e}")
+        _mongo_client = None
+        return get_mongo_client()
+    
     return _mongo_client
 
 def get_db():

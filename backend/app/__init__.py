@@ -34,10 +34,9 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # Register teardown callback to close MongoDB connection
-    @app.teardown_appcontext
-    def teardown_db(exception):
-        close_mongo_connection()
+    # Register teardown callback to close MongoDB connection only on app shutdown
+    import atexit
+    atexit.register(close_mongo_connection)
 
     # A simple route to verify the app is working
     @app.route('/health')
