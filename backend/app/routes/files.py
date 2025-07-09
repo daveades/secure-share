@@ -51,7 +51,7 @@ def upload_fileuser(user_id):
         # Upload file
         success, message, file_data = file_service.upload_file(
             file=file,
-            uploader_id=user_id['user_id'],
+            uploader_id=user_id,
             expiration_hours=expiration_hours,
             password=password,
             download_limit=download_limit
@@ -145,7 +145,7 @@ def get_my_files(user_id):
         include_expired = request.args.get('include_expired', 'false').lower() == 'true'
         
         success, message, files = file_service.get_user_files(
-            user_id['user_id'], 
+            user_id, 
             include_expired
         )
         
@@ -170,10 +170,10 @@ def get_my_files(user_id):
 
 @file_bp.route('/delete/<file_id>', methods=['DELETE'])
 @token_required
-def delete_file(current_user, file_id):
+def delete_file(user_id, file_id):
     """Delete a file"""
     try:
-        success, message = file_service.delete_file(file_id, current_user['user_id'])
+        success, message = file_service.delete_file(file_id, user_id)
         
         if success:
             return jsonify({
@@ -291,7 +291,7 @@ def download_shared_file(access_token):
 
 @file_bp.route('/cleanup', methods=['POST'])
 @token_required
-def cleanup_expired_files(current_user):
+def cleanup_expired_files(user_id):
     """Cleanup expired files (admin function)"""
     try:
         # You might want to add admin role check here
