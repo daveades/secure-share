@@ -79,17 +79,7 @@ const Dashboard = () => {
                                     Welcome to your secure file sharing dashboard
                                 </p>
                             </div>
-                            <div className="header-actions">
-                                <Button
-                                    variant="primary"
-                                    size="lg"
-                                    onClick={() => setActiveTab('upload')}
-                                    className="quick-upload-btn"
-                                >
-                                    <i className="fas fa-cloud-upload-alt me-2"></i>
-                                    Quick Upload
-                                </Button>
-                            </div>
+                            {/* Removed Quick Upload button */}
                         </div>
                     </Col>
                 </Row>
@@ -143,46 +133,6 @@ const Dashboard = () => {
                                                 </div>
                                                 <h3 className="stats-number">{formatFileSize(stats.storageUsed)}</h3>
                                                 <p className="stats-label">Storage Used</p>
-                                            </Card.Body>
-                                        </Card>
-                                    </Col>
-                                </Row>
-
-                                {/* Quick Actions */}
-                                <Row className="mb-4">
-                                    <Col>
-                                        <Card className="quick-actions-card">
-                                            <Card.Header>
-                                                <h5 className="mb-0">
-                                                    <i className="fas fa-bolt me-2"></i>
-                                                    Quick Actions
-                                                </h5>
-                                            </Card.Header>
-                                            <Card.Body>
-                                                <Row>
-                                                    <Col md={6} className="mb-3">
-                                                        <Button
-                                                            variant="outline-primary"
-                                                            size="lg"
-                                                            className="w-100 action-btn"
-                                                            onClick={() => setActiveTab('upload')}
-                                                        >
-                                                            <i className="fas fa-upload me-2"></i>
-                                                            Upload New File
-                                                        </Button>
-                                                    </Col>
-                                                    <Col md={6} className="mb-3">
-                                                        <Button
-                                                            variant="outline-secondary"
-                                                            size="lg"
-                                                            className="w-100 action-btn"
-                                                            onClick={() => setActiveTab('files')}
-                                                        >
-                                                            <i className="fas fa-folder-open me-2"></i>
-                                                            View All Files
-                                                        </Button>
-                                                    </Col>
-                                                </Row>
                                             </Card.Body>
                                         </Card>
                                     </Col>

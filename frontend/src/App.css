@@ -753,7 +753,7 @@ body {
   background: linear-gradient(135deg, var(--primary-black) 0%, var(--secondary-black) 100%);
   color: var(--white);
   padding: 2rem;
-  border-radius: 1rem;
+  border-radius: 0;
   box-shadow: 0 10px 30px var(--shadow-medium);
   margin-bottom: 1rem;
   position: relative;
@@ -951,32 +951,7 @@ body {
 }
 
 /* Quick Actions Card */
-.quick-actions-card {
-  border: none;
-  border-radius: 1rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  background: white;
-}
 
-.quick-actions-card .card-header {
-  background: linear-gradient(135deg, var(--light-gray), var(--white));
-  border-bottom: 1px solid #e9ecef;
-  border-radius: 1rem 1rem 0 0 !important;
-  padding: 1.5rem;
-}
-
-.action-btn {
-  border-radius: 0.5rem;
-  padding: 1rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  border-width: 2px;
-}
-
-.action-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
 
 /* Recent Activity Card */
 .recent-activity-card {
