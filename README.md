@@ -31,4 +31,4 @@ I decided to embark on the project beacuse I saw it as a project that was going 
 1. Install docker
 2. install docker compose
 3. Set environment variables
-4. `docker compose up --build`
+4. `docker compose up --build` from root directory.
