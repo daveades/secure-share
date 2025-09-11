@@ -1,19 +1,19 @@
 services:
-  mongodb:
-      image: mongo:latest
-      ports:
-        - "27017:27017"
-      volumes:
-        - mongo-data:/data/db
-        - ./mongodb/init-app-user.js:/docker-entrypoint-initdb.d/init-app-user.js:ro
-      environment:
-        - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-        - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-        - MONGO_APP_USERNAME=${MONGO_APP_USERNAME}
-        - MONGO_APP_PASSWORD=${MONGO_APP_PASSWORD}
-        - DB_NAME=${DB_NAME}
-      networks:
-        - secure_share_network
+  # mongodb:
+  #     image: mongo:latest
+  #     ports:
+  #       - "27018:27017"
+  #     volumes:
+  #       - mongo-data:/data/db
+  #       - ./mongodb/init-app-user.js:/docker-entrypoint-initdb.d/init-app-user.js:ro
+  #     environment:
+  #       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+  #       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+  #       - MONGO_APP_USERNAME=${MONGO_APP_USERNAME}
+  #       - MONGO_APP_PASSWORD=${MONGO_APP_PASSWORD}
+  #       - DB_NAME=${DB_NAME}
+  #     networks:
+  #       - secure_share_network
   
   backend:
     build:
@@ -21,10 +21,12 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - MONGO_URI=mongodb://${MONGO_APP_USERNAME}:${MONGO_APP_PASSWORD}@mongodb:27017/${DB_NAME}?authSource=${DB_NAME}&retryWrites=true&w=majority
+      - MONGO_URI=${MONGO_URI}
       - FLASK_APP=${FLASK_APP:-app}
       - FLASK_ENV=${FLASK_ENV:-development}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
       - DB_NAME=${DB_NAME}
+      - MONGO_URI_TEST=mongodb://${MONGO_APP_USERNAME}:${MONGO_APP_PASSWORD}@mongodb:27017/${DB_NAME}?authSource=${DB_NAME}&retryWrites=true&w=majority
     depends_on:
       - mongodb
     networks:

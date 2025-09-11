@@ -15,8 +15,8 @@ def create_app(test_config=None):
     
     # Load default configuration
     app.config.from_mapping(
-        SECRET_KEY=os.environ.get('SECRET_KEY', 'dev'),
-        MONGO_URI=os.environ.get('MONGO_URI', 'mongodb://mongo:27017/'),
+        SECRET_KEY=os.environ.get('JWT_SECRET_KEY', 'dev'),
+        MONGO_URI=os.environ.get('MONGO_URI', os.environ.get('MONGO_URI_TEST')),
         DB_NAME=os.environ.get('DB_NAME', 'secure_share'),
         MAX_CONTENT_LENGTH=100 * 1024 * 1024,  # 100MB max file size
     )
