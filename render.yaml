@@ -13,9 +13,9 @@ services:
       - key: JWT_SECRET_KEY
         generateValue: true
       - key: DB_NAME
-        value: secure_share
+        sync: false  # Will be set manually in Render dashboard
       - key: PORT
-        value: 5000
+        sync: false
 
   - type: web
     name: secure-share-frontend
@@ -25,6 +25,10 @@ services:
     plan: free
     envVars:
       - key: REACT_APP_API_URL
+        sync: false
       - key: REACT_APP_NAME
+        sync: false
       - key: REACT_APP_VERSION
+        sync: false
       - key: GENERATE_SOURCEMAP
+        sync: false
