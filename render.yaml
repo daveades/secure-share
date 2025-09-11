@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: secure-share-backend
+    env: python
+    buildCommand: "cd backend && pip install -r requirements.txt"
+    startCommand: "cd backend && python main.py"
+    plan: free
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false  # Will be set manually in Render dashboard
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: DB_NAME
+        value: secure_share
+      - key: PORT
+        value: 5000
+
+  - type: web
+    name: secure-share-frontend
+    env: node
+    buildCommand: "cd frontend && npm install && npm run build"
+    startCommand: "cd frontend && npx serve -s build -l 3000"
+    plan: free
+    envVars:
+      - key: REACT_APP_API_URL
+      - key: REACT_APP_NAME
+      - key: REACT_APP_VERSION
+      - key: GENERATE_SOURCEMAP
