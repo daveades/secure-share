@@ -9,11 +9,11 @@ services:
       - key: FLASK_ENV
         value: production
       - key: MONGO_URI
-        sync: false  # Will be set manually in Render dashboard
+        sync: false
       - key: JWT_SECRET_KEY
         generateValue: true
       - key: DB_NAME
-        sync: false  # Will be set manually in Render dashboard
+        sync: false
       - key: PORT
         sync: false
 
