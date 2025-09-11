@@ -10,8 +10,14 @@ def create_app(test_config=None):
     """Create and configure the Flask application"""
     app = Flask(__name__, instance_relative_config=True)
     
-    # Enable CORS
-    CORS(app)
+    # CORS configuration for production and development
+    if os.environ.get('FLASK_ENV') == 'production':
+        CORS(app, origins=[
+            "https://secure-share-frontend.onrender.com",
+            "https://your-custom-domain.com"  # if you have one
+        ])
+    else:
+        CORS(app, origins=["http://localhost:3000", "http://localhost:80"])
     
     # Load default configuration
     app.config.from_mapping(
