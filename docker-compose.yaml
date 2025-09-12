@@ -26,7 +26,7 @@ services:
       - FLASK_ENV=${FLASK_ENV:-development}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
       - DB_NAME=${DB_NAME}
-      - MONGO_URI_TEST=mongodb://${MONGO_APP_USERNAME}:${MONGO_APP_PASSWORD}@mongodb:27017/${DB_NAME}?authSource=${DB_NAME}&retryWrites=true&w=majority
+      - MONGO_URI_TEST=${MONGO_URI_TEST}
     # depends_on:
     #   - mongodb
     networks:
