@@ -2,8 +2,8 @@ services:
   - type: web
     name: secure-share-backend
     env: python
-    buildCommand: "cd backend && pip install -r requirements.txt"
-    startCommand: "cd backend && python main.py"
+    buildCommand: "cd api && pip install -r requirements.txt"
+    startCommand: "cd api && python main.py"
     plan: free
     envVars:
       - key: FLASK_ENV
@@ -20,8 +20,8 @@ services:
   - type: web
     name: secure-share-frontend
     env: node
-    buildCommand: "cd frontend && npm install && npm run build"
-    startCommand: "cd frontend && npx serve -s build -l 3000"
+    buildCommand: "cd web && npm install && npm run build"
+    startCommand: "cd web && npx serve -s build -l 3000"
     plan: free
     envVars:
       - key: REACT_APP_API_URL
